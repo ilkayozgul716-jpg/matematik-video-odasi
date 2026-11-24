@@ -49,7 +49,7 @@
 <body>
 <header>
   <h1>Matematik <span>Video Odası</span></h1>
-  <p id="ozet">Gönderdiğin sorunun fotoğrafına dokun, anlatımı izle.</p>
+  <p id="ozet">Konu anlatımlarını ve gönderdiğin soruların çözümlerini burada izle.</p>
 </header>
 <div class="wrap" id="icerik"></div>
 <dialog id="pencere">
@@ -121,7 +121,7 @@ function ciz(){
   $("#icerik").innerHTML = html + (sonGun ? "</div>" : "");
   document.querySelectorAll(".foto, .bolumkart").forEach(b => b.onclick = () => ac(b.dataset.id));
   const hazir = VIDEOLAR.filter(v => v.drive_id).length;
-  $("#ozet").textContent = hazir ? `${hazir} video hazır. Sorunun fotoğrafına dokun, izle.` : "Videolar hazırlanıyor. Fotoğrafına dokunduğun soru hazır olunca burada oynar.";
+  $("#ozet").textContent = hazir ? `${hazir} video hazır. Bir karta dokun, izle.` : "Videolar hazırlanıyor. Hazır olanlar burada oynar.";
 }
 function ac(id){
   aktif = VIDEOLAR.find(v => v.id === id); if (!aktif) return;
