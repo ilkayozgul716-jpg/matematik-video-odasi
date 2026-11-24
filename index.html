@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14213d">
+<meta name="robots" content="noindex, nofollow">
+<title>Matematik Video Odası</title>
+<style>
+  :root{--zemin:#f6f4ef;--kart:#fff;--yazi:#1d2433;--soluk:#6b7280;--cizgi:#e7e2d7;--ana:#14213d;--vurgu:#fca311;--iyi:#2f9e5b}
+  @media (prefers-color-scheme:dark){:root{--zemin:#0f1420;--kart:#19202e;--yazi:#eef0f4;--soluk:#9aa3b2;--cizgi:#2a3344;--ana:#0b1020}}
+  *{box-sizing:border-box} html,body{margin:0;background:var(--zemin);color:var(--yazi);font:16px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif}
+  header{background:var(--ana);color:#fff;padding:20px 16px 16px;padding-top:max(20px,env(safe-area-inset-top))}
+  header h1{margin:0;font-size:22px} header h1 span{color:var(--vurgu)}
+  header p{margin:4px 0 0;color:#c9d1e0;font-size:14px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 12px 40px}
+  h2{font-size:15px;color:var(--soluk);font-weight:600;margin:22px 4px 10px}
+  .izgara{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media (min-width:700px){.izgara{grid-template-columns:repeat(3,1fr)}}
+  @media (min-width:950px){.izgara{grid-template-columns:repeat(4,1fr)}}
+  .foto{position:relative;display:block;width:100%;aspect-ratio:3/4;border:0;padding:0;border-radius:14px;overflow:hidden;background:#fff center top/cover no-repeat;cursor:pointer;box-shadow:0 1px 3px #0002}
+  .etiket{position:absolute;left:8px;right:8px;bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 8px;border-radius:10px;font:600 15px/1.2 "Segoe UI",system-ui,sans-serif;color:#fff;background:var(--iyi)}
+  .foto.bekliyor .etiket{background:#14213dcc;font-weight:500;font-size:13px}
+  .foto.izlendi .etiket{background:#14213dcc}
+  .foto.izlendi::before{content:"✓";position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:var(--iyi);color:#fff;display:grid;place-items:center;font-weight:700}
+  .coklu{position:absolute;top:8px;left:8px;font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--vurgu);color:#14213d}
+  .bos{color:var(--soluk);text-align:center;padding:60px 0}
+  dialog{border:0;padding:0;width:min(960px,100vw);max-width:100vw;max-height:100dvh;background:var(--kart);color:var(--yazi);border-radius:16px}
+  dialog::backdrop{background:#000d}
+  .oynatici{aspect-ratio:16/9;background:#000} .oynatici iframe{width:100%;height:100%;border:0}
+  .detay{padding:12px 16px 16px}
+  .ad{font-weight:700;font-size:17px}
+  .cevap{color:var(--iyi);font-weight:600}
+  .dugmeler{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .dugmeler button,.dugmeler a{font:inherit;padding:10px 16px;border-radius:10px;border:1px solid var(--cizgi);background:var(--zemin);color:var(--yazi);text-decoration:none;cursor:pointer}
+  .dugmeler .ana{background:var(--iyi);border-color:var(--iyi);color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <h1>Matematik <span>Video Odası</span></h1>
+  <p id="ozet">Gönderdiğin sorunun fotoğrafına dokun, anlatımı izle.</p>
+</header>
+<div class="wrap" id="icerik"></div>
+<dialog id="pencere">
+  <div class="oynatici" id="oynatici"></div>
+  <div class="detay">
+    <div class="ad" id="dAd"></div>
+    <div id="dCevap"></div>
+    <div class="dugmeler">
+      <button class="ana" id="dIzle">✓ İzledim</button>
+      <a id="dDrive" target="_blank" rel="noopener">Tam ekran aç</a>
+      <button id="dKapat">Kapat</button>
+    </div>
+  </div>
+</dialog>
+<script>
+const VIDEOLAR = [{"id": "20261124-210020-9900", "tur": "soru", "baslik": "A-17 · Kartlar ve en yakın tam sayı", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210020-9900-1.jpg", "resimler": ["resimler/20261124-210020-9900-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543220.9633677}, {"id": "20261124-210020-9835", "tur": "soru", "baslik": "A-9 · Telden parça kesmek", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210020-9835-1.jpg", "resimler": ["resimler/20261124-210020-9835-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543220.0370862}, {"id": "20261124-210021-9716", "tur": "soru", "baslik": "B-12 · Dal ve sayı doğrusu", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-9716-1.jpg", "resimler": ["resimler/20261124-210021-9716-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543219.118328}, {"id": "20261124-210021-96a1", "tur": "soru", "baslik": "B-9 · İki ağaç ve direk", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-96a1-1.jpg", "resimler": ["resimler/20261124-210021-96a1-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543218.1933863}, {"id": "20261124-210021-950d", "tur": "soru", "baslik": "B-11 · Sarı karton mavinin içinde", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-950d-1.jpg", "resimler": ["resimler/20261124-210021-950d-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543217.2755406}, {"id": "20261124-210021-9421", "tur": "soru", "baslik": "B-7 · Karton dörde kesiliyor", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-9421-1.jpg", "resimler": ["resimler/20261124-210021-9421-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543216.3711598}, {"id": "20261124-210021-9365", "tur": "soru", "baslik": "A-5 · Yapboz", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-9365-1.jpg", "resimler": ["resimler/20261124-210021-9365-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543215.4423149}, {"id": "20261124-210021-9209", "tur": "soru", "baslik": "A-19 · Kâğıttan şerit kesmek", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-9209-1.jpg", "resimler": ["resimler/20261124-210021-9209-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543214.5139108}, {"id": "20261124-210021-9176", "tur": "soru", "baslik": "A-11 · Üç resim, en küçük çevre", "konu": "Kareköklü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-9176-1.jpg", "resimler": ["resimler/20261124-210021-9176-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543213.595901}, {"id": "20261124-210021-902b", "tur": "soru", "baslik": "B-17 · Dünyanın su tüketimi", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-902b-1.jpg", "resimler": ["resimler/20261124-210021-902b-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543212.686136}, {"id": "20261124-210021-8933", "tur": "soru", "baslik": "B-10 · Baharatlar", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-8933-1.jpg", "resimler": ["resimler/20261124-210021-8933-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543211.7729647}, {"id": "20261124-210021-88cb", "tur": "soru", "baslik": "A-18 · Mum", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-88cb-1.jpg", "resimler": ["resimler/20261124-210021-88cb-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543210.8363411}, {"id": "20261124-210021-87f9", "tur": "soru", "baslik": "A-12 · Eğirdir Gölü kaç damla", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-87f9-1.jpg", "resimler": ["resimler/20261124-210021-87f9-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543209.8975976}, {"id": "20261124-210021-86a1", "tur": "soru", "baslik": "A-20 · Mavi ve sarı kartlar", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-86a1-1.jpg", "resimler": ["resimler/20261124-210021-86a1-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543208.9474514}, {"id": "20261124-210021-85cd", "tur": "soru", "baslik": "A-8 · On'un kuvvetleri kartları", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210021-85cd-1.jpg", "resimler": ["resimler/20261124-210021-85cd-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543208.061375}, {"id": "20261124-210022-846b", "tur": "soru", "baslik": "B-4 · Tahtalarla kaplı oda", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-846b-1.jpg", "resimler": ["resimler/20261124-210022-846b-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543207.1566603}, {"id": "20261124-210022-83e1", "tur": "soru", "baslik": "A-13 · Aynalar", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-83e1-1.jpg", "resimler": ["resimler/20261124-210022-83e1-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543206.214128}, {"id": "20261124-210022-820f", "tur": "soru", "baslik": "A-6 · Asılı daireler", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-820f-1.jpg", "resimler": ["resimler/20261124-210022-820f-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543205.2883584}, {"id": "20261124-210022-81e3", "tur": "soru", "baslik": "A-3 · Sayı doğrusunda tam sayılar", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-81e3-1.jpg", "resimler": ["resimler/20261124-210022-81e3-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543204.337292}, {"id": "20261124-210022-801c", "tur": "soru", "baslik": "B-6 · Petrol rezervi", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-801c-1.jpg", "resimler": ["resimler/20261124-210022-801c-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543203.3925507}, {"id": "20261124-210022-7924", "tur": "soru", "baslik": "B-14 · Bakteriler", "konu": "Üslü ifadeler", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-7924-1.jpg", "resimler": ["resimler/20261124-210022-7924-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543202.44708}, {"id": "20261124-210022-7846", "tur": "soru", "baslik": "A-1 · Aralarında asal, EKOK 144", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-7846-1.jpg", "resimler": ["resimler/20261124-210022-7846-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543201.4936204}, {"id": "20261124-210022-772a", "tur": "soru", "baslik": "A-4 · EBOB", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-772a-1.jpg", "resimler": ["resimler/20261124-210022-772a-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543200.5539315}, {"id": "20261124-210022-76bd", "tur": "soru", "baslik": "A-2 · Kapatılmış asal çarpanlar", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-76bd-1.jpg", "resimler": ["resimler/20261124-210022-76bd-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543199.6081817}, {"id": "20261124-210022-7571", "tur": "soru", "baslik": "A-14 · Boncuk paketleri", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-7571-1.jpg", "resimler": ["resimler/20261124-210022-7571-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543198.686784}, {"id": "20261124-210022-74dc", "tur": "soru", "baslik": "A-15 · Zeytinyağı şişeleri", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-74dc-1.jpg", "resimler": ["resimler/20261124-210022-74dc-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543197.7547143}, {"id": "20261124-210022-73b0", "tur": "soru", "baslik": "B-8 · Tişört taksitleri", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-73b0-1.jpg", "resimler": ["resimler/20261124-210022-73b0-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543196.8209405}, {"id": "20261124-210022-727e", "tur": "soru", "baslik": "A-16 · Çarpan ağacı", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-727e-1.jpg", "resimler": ["resimler/20261124-210022-727e-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543195.886147}, {"id": "20261124-210022-715d", "tur": "soru", "baslik": "B-5 · Aralarında asal yaşlar", "konu": "Çarpanlar ve katlar", "cevap": "", "cozum": "", "drive": "", "drive_id": "", "resim": "resimler/20261124-210022-715d-1.jpg", "resimler": ["resimler/20261124-210022-715d-1.jpg"], "tarih": "24.11.2026", "olusturma": 1795543194.9442365}];
+const $ = s => document.querySelector(s);
+let aktif = null;
+function izlenenler(){ try { return new Set(JSON.parse(localStorage.getItem("izlenen") || "[]")); } catch(_) { return new Set(); } }
+function izleKaydet(s){ try { localStorage.setItem("izlenen", JSON.stringify([...s])); } catch(_){} }
+function esc(s){ return (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function gunAdi(ts){
+  const g = new Date(ts*1000), b = new Date(); b.setHours(0,0,0,0);
+  const fark = Math.round((b - new Date(g.getFullYear(), g.getMonth(), g.getDate())) / 864e5);
+  if (fark === 0) return "Bugün gönderdiklerin";
+  if (fark === 1) return "Dün gönderdiklerin";
+  return g.toLocaleDateString("tr-TR", {day:"numeric", month:"long", weekday:"long"});
+}
+function ciz(){
+  const iz = izlenenler();
+  if (!VIDEOLAR.length) { $("#icerik").innerHTML = '<div class="bos">Henüz soru yok.</div>'; return; }
+  // her fotoğraf ayrı kutu; blokta aynı videoya gider
+  const kutular = [];
+  VIDEOLAR.forEach(v => (v.resimler.length ? v.resimler : [""]).forEach((r, i) =>
+    kutular.push({v, r, sira: i + 1, toplam: v.resimler.length})));
+  kutular.sort((a, b) => b.v.olusturma - a.v.olusturma || a.sira - b.sira);
+  let html = "", sonGun = "";
+  kutular.forEach(k => {
+    const gun = gunAdi(k.v.olusturma);
+    if (gun !== sonGun) { html += (sonGun ? "</div>" : "") + `<h2>${esc(gun)}</h2><div class="izgara">`; sonGun = gun; }
+    const hazir = !!k.v.drive_id, izlendi = hazir && iz.has(k.v.id);
+    html += `<button class="foto ${hazir ? "" : "bekliyor"} ${izlendi ? "izlendi" : ""}" data-id="${k.v.id}"
+      style="background-image:url('${k.r}')" aria-label="${esc(k.v.baslik)}">
+      ${k.toplam > 1 ? `<span class="coklu">${k.sira}/${k.toplam}</span>` : ""}
+      <span class="etiket">${hazir ? (izlendi ? "▶ Tekrar izle" : "▶ İzle") : "⏳ Video hazırlanıyor"}</span></button>`;
+  });
+  $("#icerik").innerHTML = html + "</div>";
+  document.querySelectorAll(".foto").forEach(b => b.onclick = () => ac(b.dataset.id));
+  const hazir = VIDEOLAR.filter(v => v.drive_id).length;
+  $("#ozet").textContent = hazir ? `${hazir} video hazır. Sorunun fotoğrafına dokun, izle.` : "Videolar hazırlanıyor. Fotoğrafına dokunduğun soru hazır olunca burada oynar.";
+}
+function ac(id){
+  aktif = VIDEOLAR.find(v => v.id === id); if (!aktif) return;
+  $("#oynatici").innerHTML = aktif.drive_id
+    ? `<iframe src="https://drive.google.com/file/d/${aktif.drive_id}/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>`
+    : `<div style="height:100%;display:grid;place-items:center;color:#fff;text-align:center;padding:20px">Bu sorunun videosu hazırlanıyor.<br>Biraz sonra tekrar bak!</div>`;
+  $("#dAd").textContent = aktif.baslik || "";
+  $("#dCevap").innerHTML = aktif.cevap ? `Cevap: <span class="cevap">${esc(aktif.cevap)}</span>` : "";
+  $("#dDrive").href = aktif.drive || "#"; $("#dDrive").style.display = aktif.drive ? "" : "none";
+  $("#dIzle").style.display = aktif.drive_id ? "" : "none";
+  $("#dIzle").textContent = izlenenler().has(id) ? "İzlenmedi yap" : "✓ İzledim";
+  $("#pencere").showModal();
+}
+function kapat(){ $("#oynatici").innerHTML = ""; $("#pencere").close(); }
+$("#dKapat").onclick = kapat;
+$("#pencere").addEventListener("cancel", e => { e.preventDefault(); kapat(); });
+$("#pencere").addEventListener("click", e => { if (e.target === $("#pencere")) kapat(); });
+$("#dIzle").onclick = () => { const s = izlenenler(); s.has(aktif.id) ? s.delete(aktif.id) : s.add(aktif.id); izleKaydet(s); kapat(); ciz(); };
+ciz();
+</script>
+</body>
+</html>
